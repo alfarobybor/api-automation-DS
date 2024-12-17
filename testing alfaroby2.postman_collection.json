@@ -1,0 +1,308 @@
+{
+	"info": {
+		"_postman_id": "c32bccaf-fc5a-499f-b220-e94321f337fc",
+		"name": "testing alfaroby",
+		"description": "testing alfaroby",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40480214",
+		"_collection_link": "https://digitalskola-3570.postman.co/workspace/digitalskola-Workspace~05a4b29e-043f-4e05-89ab-c7379c8ce063/collection/40480214-c32bccaf-fc5a-499f-b220-e94321f337fc?action=share&source=collection_link&creator=40480214"
+	},
+	"item": [
+		{
+			"name": "restful pake json scheme",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const schema =",
+							"{",
+							"  \"type\": \"array\",",
+							"  \"items\": {",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"      \"id\": {",
+							"        \"type\": \"string\"",
+							"      },",
+							"      \"name\": {",
+							"        \"type\": \"string\"",
+							"      },",
+							"      \"data\": {",
+							"        \"type\": [\"object\", \"null\"],",
+							"        \"properties\": {",
+							"          \"color\": {",
+							"            \"type\": \"string\"",
+							"          },",
+							"          \"capacity\": {",
+							"            \"type\": [\"string\", \"number\"]",
+							"          },",
+							"          \"price\": {",
+							"            \"type\": \"number\"",
+							"          },",
+							"          \"generation\": {",
+							"            \"type\": \"string\"",
+							"          },",
+							"          \"year\": {",
+							"            \"type\": \"number\"",
+							"          },",
+							"          \"CPU model\": {",
+							"            \"type\": \"string\"",
+							"          },",
+							"          \"Hard disk size\": {",
+							"            \"type\": \"string\"",
+							"          },",
+							"          \"Strap Colour\": {",
+							"            \"type\": \"string\"",
+							"          },",
+							"          \"Case Size\": {",
+							"            \"type\": \"string\"",
+							"          },",
+							"          \"Description\": {",
+							"            \"type\": \"string\"",
+							"          },",
+							"          \"Capacity\": {",
+							"            \"type\": \"string\"",
+							"          },",
+							"          \"Screen size\": {",
+							"            \"type\": \"number\"",
+							"          }",
+							"        },",
+							"        \"additionalProperties\": true",
+							"      }",
+							"    },",
+							"    \"required\": [\"id\", \"name\", \"data\"],",
+							"    \"additionalProperties\": false",
+							"  }",
+							"}",
+							"",
+							"pm.test(\"Validate JSON Schema\", function () {",
+							"\tpm.response.to.have.jsonSchema(schema)",
+							"})",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body is an array\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('array');",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.restful-api.dev/objects",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list <resource>",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 100ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(100);",
+							"});",
+							"",
+							"pm.test(\"Verify the structure of the response body\", function () {",
+							"    pm.expect(pm.response.json()).to.have.all.keys('page', 'per_page', 'total', 'total_pages', 'data', 'support');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/unknown",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"unknown"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login-succesfull",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"pm.test(\"Response body has a token\", function () {",
+							"    pm.expect(pm.response.json()).to.have.property('token');",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"eve.holt@reqres.in\",\n    \"password\": \"cityslicka\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/users/2",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 600ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.lessThan(600);",
+							"});",
+							"",
+							"pm.test(\"Response body has the expected structure\", function () {",
+							"    pm.expect(pm.response.json()).to.have.all.keys('name', 'job', 'updatedAt');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"morpheus\",\n    \"job\": \"zion resident\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/users/2",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
